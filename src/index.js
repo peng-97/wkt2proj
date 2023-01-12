@@ -99,11 +99,12 @@ function bracket_to_json(wkt,index=0){
     return  bracket_list[0];
 }
 
-
-
 function  to_proj4(str){
     let wkt_json=bracket_to_json(str)
     let cs=new Cs(wkt_json)
     return cs.to_proj4()
 }
-export  default  to_proj4
+
+export  default {
+      to_proj4
+}

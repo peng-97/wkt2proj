@@ -299,11 +299,11 @@
             this.wkt_json=wkt_json;
             this.init();
         }
-        get_geogcs(value){
+        _get_geogcs(value){
             let values=Object.values(value)[0];
             return new GeogCs(values[0],values[1],values[2])
         }
-        get_proj(value){
+        _get_projcs(value){
             let values=Object.values(value)[0];
             let  prj_name=values[0];
             let proj_parma=[];
@@ -316,6 +316,7 @@
                     switch (key){
                         case PKW_GEOGCS:
                             geocs=values[i];
+                            break;
                         case PKW_PARAMETER:
                             proj_parma.push(values[i]);
                             break
@@ -334,9 +335,9 @@
         init(){
             this.type=Object.keys(this.wkt_json)[0].toUpperCase();
             if (Object.keys(this.wkt_json)[0].toUpperCase()===PKW_PROJCS){
-                this.cs=this.get_proj(this.wkt_json);
+                this.cs=this._get_projcs(this.wkt_json);
             }else {
-                this.cs=this.get_geogcs(this.wkt_json);
+                this.cs=this._get_geogcs(this.wkt_json);
             }
 
         }
@@ -380,15 +381,17 @@
         return  bracket_list[0];
     }
 
-
-
     function  to_proj4(str){
         let wkt_json=bracket_to_json(str);
         let cs=new Cs(wkt_json);
         return cs.to_proj4()
     }
 
-    return to_proj4;
+    var index = {
+          to_proj4
+    };
+
+    return index;
 
 }));
 //# sourceMappingURL=wkt2proj.js.map

@@ -8,9 +8,6 @@ const  PKW_UNIT = "UNIT"; //单位
 const  PKW_PROJECTION ="PROJECTION"; //投影类型
 const  PKW_PARAMETER = "PARAMETER";  //投影参数
 const  PKW_AUTHORITY = "AUTHORITY";//权威定义
-
-
-
 import ProjCs from "./ProjCs";
 import GeogCs from "./GeogCs";
 class Cs{
@@ -18,11 +15,11 @@ class Cs{
         this.wkt_json=wkt_json
         this.init()
     }
-    get_geogcs(value){
+    _get_geogcs(value){
         let values=Object.values(value)[0]
         return new GeogCs(values[0],values[1],values[2])
     }
-    get_proj(value){
+    _get_projcs(value){
         let values=Object.values(value)[0]
         let  prj_name=values[0];
         let proj_parma=[];
@@ -34,9 +31,10 @@ class Cs{
                 let key=Object.keys(values[i])[0].toUpperCase();
                 switch (key){
                     case PKW_GEOGCS:
-                        geocs=values[i]
+                        geocs=values[i];
+                        break;
                     case PKW_PARAMETER:
-                        proj_parma.push(values[i])
+                        proj_parma.push(values[i]);
                         break
                     case PKW_UNIT:
                         unit=values[i];
@@ -53,9 +51,9 @@ class Cs{
     init(){
         this.type=Object.keys(this.wkt_json)[0].toUpperCase();
         if (Object.keys(this.wkt_json)[0].toUpperCase()===PKW_PROJCS){
-            this.cs=this.get_proj(this.wkt_json)
+            this.cs=this._get_projcs(this.wkt_json)
         }else{
-            this.cs=this.get_geogcs(this.wkt_json)
+            this.cs=this._get_geogcs(this.wkt_json)
         }
 
     }

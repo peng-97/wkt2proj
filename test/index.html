@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script src="../dist"></script>
+     <script>
+         let wkt='GEOGCS["GCS_China_Geodetic_Coordinate_System_2000",\n' +
+             '    DATUM["D_China_2000",\n' +
+             '        SPHEROID["CGCS2000",6378137.0,298.257222101]],\n' +
+             '    PRIMEM["Greenwich",0.0],\n' +
+             '    UNIT["Degree",0.0174532925199433]]'
+         let result=wkt2proj.to_proj4(wkt)
+         console.log(result)
+     </script>
+</body>
+</html>

@@ -11,6 +11,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -24,23 +25,30 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\Documents\GitHub\wkt2proj\src" />
       <recent name="E:\Documents\GitHub\wkt2proj" />
+      <recent name="E:\Documents\GitHub\wkt2proj\src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Documents\GitHub\wkt2proj\src\Proj" />
     </key>
   </component>
   <component name="RunManager" selected="Node.js.index.js">
+    <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/wkt2proj/test/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="index.js (1)" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/index.js" working-dir="$PROJECT_DIR$/src">
+      <method v="2" />
+    </configuration>
     <configuration name="index.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/test/index.js" working-dir="$PROJECT_DIR$/test">
       <method v="2" />
     </configuration>
@@ -68,6 +76,8 @@
       <list>
         <item itemvalue="Node.js.index.js" />
         <item itemvalue="npm.build" />
+        <item itemvalue="JavaScript 调试.index.html" />
+        <item itemvalue="Node.js.index.js (1)" />
         <item itemvalue="npm.test" />
       </list>
     </recent_temporary>
@@ -80,7 +90,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1673488790121</updated>
-      <workItem from="1673488794920" duration="1843000" />
+      <workItem from="1673488794920" duration="4152000" />
     </task>
     <servers />
   </component>
