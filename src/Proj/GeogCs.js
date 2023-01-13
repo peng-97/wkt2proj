@@ -1,12 +1,13 @@
 import Datum from "./Datum";
 import Prime from "./Prime";
 class GeogCs{
-    constructor(name, datum, prime_mer, angunit, twin_ax=null) {
-        this.name=name;
-        this.datum=new Datum(datum);
-        this.prime_mer=new Prime(prime_mer);
-        this.angunit=angunit;
-        this.twin_ax=twin_ax;
+    constructor(geogcs) {
+        let values=Object.values(geogcs)[0];
+        this.name=values[0];
+        this.datum=new Datum(values[1]);
+        this.prime_mer=new Prime(values[2]);
+        // this.angunit=angunit;
+        // this.twin_ax=twin_ax;
     }
     _get_geo_proj4(){
         return this.datum.to_proj4()+this.prime_mer.to_proj4()
@@ -16,7 +17,7 @@ class GeogCs{
         if (isPro){
             return str_proj
         }else {
-            return  " +proj=longlat"+str_proj
+            return  "+proj=longlat"+str_proj
         }
 
     }

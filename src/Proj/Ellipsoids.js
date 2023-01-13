@@ -55,7 +55,7 @@ class Ellipsoids{
         if (ell){
             return " +ellps="+ell.name
         }else{
-            return  " +a="+this.a+" rf="+this.rf
+            return  " +a="+this.a+" +rf="+this.rf
         }
     }
 }

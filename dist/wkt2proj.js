@@ -1,5 +1,5 @@
 /*!
- * wkt2proj v0.1.0
+ * wkt2proj v0.1.2
  * LICENSE : MIT
   AUTHOR  : pengz 
 * */
@@ -66,7 +66,7 @@
             if (ell){
                 return " +ellps="+ell.name
             }else {
-                return  " +a="+this.a+" rf="+this.rf
+                return  " +a="+this.a+" +rf="+this.rf
             }
         }
     }
@@ -110,12 +110,13 @@
     }
 
     class GeogCs{
-        constructor(name, datum, prime_mer, angunit, twin_ax=null) {
-            this.name=name;
-            this.datum=new Datum(datum);
-            this.prime_mer=new Prime(prime_mer);
-            this.angunit=angunit;
-            this.twin_ax=twin_ax;
+        constructor(geogcs) {
+            let values=Object.values(geogcs)[0];
+            this.name=values[0];
+            this.datum=new Datum(values[1]);
+            this.prime_mer=new Prime(values[2]);
+            // this.angunit=angunit;
+            // this.twin_ax=twin_ax;
         }
         _get_geo_proj4(){
             return this.datum.to_proj4()+this.prime_mer.to_proj4()
@@ -125,9 +126,76 @@
             if (isPro){
                 return str_proj
             }else {
-                return  " +proj=longlat"+str_proj
+                return  "+proj=longlat"+str_proj
             }
 
+        }
+    }
+
+    class ProjParameter {
+        proj_param_list=[
+            { "False_Easting":          "x_0"   },
+            { "False_Northing" :        "y_0"   },
+            { "Central_Meridian":       "lon_0"  },
+            { "Latitude_Of_Origin":     "lat_0"  },
+            { "Latitude_Of_Center" :    "lat_0"  },
+            { "Standard_Parallel_1" :   "lat_ts" },
+            { "Standard_Parallel_2" :   "lat_2"  },
+            { "Latitude_Of_1st_Point":  "lat_1"  },
+            { "Latitude_Of_2nd_Point":  "lat_2"  },
+            { "Longitude_Of_1st_Point" : "lon_1"  },
+            { "Longitude_Of_2nd_Point" : "lon_2"  },
+            { "Scale_Factor" :           "k"},
+            { "Azimuth" :                "alpha"  },
+            { "Longitude_Of_Center" :    "lonc"}
+        ];
+        constructor(param) {
+            let values=Object.values(param)[0];
+            this.param_name=values[0];
+            this.param_value=values[1];
+        };
+        _get_proj_param(){
+            for (let i = 0; i < this.proj_param_list.length; i++) {
+                let obj=this.proj_param_list[i];
+                if (Object.keys(obj)[0].toLowerCase()===this.param_name.toLowerCase()){
+                    return obj[Object.keys(obj)[0]]
+                }
+            }
+            return  ""
+        };
+        to_proj4(){
+            let para_value=this._get_proj_param();
+            return " +"+para_value+"="+this.param_value;
+        }
+    }
+
+    class Uint{
+        constructor(unit) {
+            this.unit_name=Object.values(unit)[0][0];
+            // this.unit_value=Object.values(unit)[1]
+        };
+        unit_list=[
+            { "Kilometer" :      "km"    },
+            { "Meter" :          "m"     },
+            { "Decimeter" :      "dm"    },
+            { "Centimeter" :     "cm"    },
+            { "Millimeter" :     "mm"    },
+            { "Foot_US" :        "us-ft" },
+            { "Foot_Gold_Coast" :"us-ft" },
+            { "Degree" :         ""      },
+        ];
+        _get_unit(){
+            for (let i = 0; i < this.unit_list.length; i++) {
+                let obj=this.unit_list[i];
+                if (Object.keys(obj)[0].toLowerCase()===this.unit_name.toLowerCase()){
+                    return obj[Object.keys(obj)[0]]
+                }
+            }
+            return "Unknown"
+        };
+        to_proj4(){
+            let unit_value=this._get_unit();
+            return " +units="+unit_value;
         }
     }
 
@@ -204,142 +272,55 @@
         }
     }
 
-    class ProjParameter {
-        proj_param_list=[
-            { "False_Easting":          "x_0"   },
-            { "False_Northing" :        "y_0"   },
-            { "Central_Meridian":       "lon_0"  },
-            { "Latitude_Of_Origin":     "lat_0"  },
-            { "Latitude_Of_Center" :    "lat_0"  },
-            { "Standard_Parallel_1" :   "lat_ts" },
-            { "Standard_Parallel_2" :   "lat_2"  },
-            { "Latitude_Of_1st_Point":  "lat_1"  },
-            { "Latitude_Of_2nd_Point":  "lat_2"  },
-            { "Longitude_Of_1st_Point" : "lon_1"  },
-            { "Longitude_Of_2nd_Point" : "lon_2"  },
-            { "Scale_Factor" :           "k"},
-            { "Azimuth" :                "alpha"  },
-            { "Longitude_Of_Center" :    "lonc"}
-        ];
-        constructor(param) {
-            let values=Object.values(param)[0];
-            this.param_name=values[0];
-            this.param_value=values[1];
-        };
-        _get_proj_param(){
-            for (let i = 0; i < this.proj_param_list.length; i++) {
-                let obj=this.proj_param_list[i];
-                if (Object.keys(obj)[0].toLowerCase()===this.param_name.toLowerCase()){
-                    return obj[Object.keys(obj)[0]]
-                }
-            }
-            return  ""
-        };
-        to_proj4(){
-            let para_value=this._get_proj_param();
-            return " +"+para_value+"="+this.param_value;
-        }
-    }
-
-    class Uint{
-        constructor(unit) {
-            this.unit_name=Object.values(unit)[0][0];
-            // this.unit_value=Object.values(unit)[1]
-        };
-        unit_list=[
-            { "Kilometer" :      "km"    },
-            { "Meter" :          "m"     },
-            { "Decimeter" :      "dm"    },
-            { "Centimeter" :     "cm"    },
-            { "Millimeter" :     "mm"    },
-            { "Foot_US" :        "us-ft" },
-            { "Foot_Gold_Coast" :"us-ft" },
-            { "Degree" :         ""      },
-        ];
-        _get_unit(){
-            for (let i = 0; i < this.unit_list.length; i++) {
-                let obj=this.unit_list[i];
-                if (Object.keys(obj)[0].toLowerCase()===this.unit_name.toLowerCase()){
-                    return obj[Object.keys(obj)[0]]
-                }
-            }
-            return "Unknown"
-        };
-        to_proj4(){
-            let unit_value=this._get_unit();
-            return " +units="+unit_value;
-        }
-    }
-
-    class ProjCs{
-        constructor(name,geogcs,proj,params,unit) {
-            this.name=name;
-            this.geogcs=new GeogCs(geogcs);
-            this.proj=new Projection(proj);
-            this.params=params.map(value => {
-                return new ProjParameter(value)
-            });
-            this.unit=new Uint(unit);
-        }
-        to_proj4(){
-            let params=this.params.map(value => {
-                return value.to_proj4()
-            }).join(" ");
-            return " +proj="+this.proj.to_proj4()+this.geogcs.to_proj4(true)+params+this.unit.to_proj4()
-        }
-    }
-
-    const  PKW_PROJCS ="PROJCS";   //投影坐标系
     const  PKW_GEOGCS="GEOGCS";    //地理坐标系
-    const  PKW_UNIT = "UNIT"; //单位
-    const  PKW_PROJECTION ="PROJECTION"; //投影类型
-    const  PKW_PARAMETER = "PARAMETER";  //投影参数
-    class Cs{
-        constructor(wkt_json) {
-            this.wkt_json=wkt_json;
-            this.init();
-        }
-        _get_geogcs(value){
-            let values=Object.values(value)[0];
-            return new GeogCs(values[0],values[1],values[2])
-        }
-        _get_projcs(value){
-            let values=Object.values(value)[0];
-            let  prj_name=values[0];
-            let proj_parma=[];
-            let geocs="";
-            let unit="";
-            let proj="";
+     const  PKW_UNIT = "UNIT"; //单位
+     const  PKW_PROJECTION ="PROJECTION"; //投影类型
+     const  PKW_PARAMETER = "PARAMETER";  //投影参数
+    class ProjCs{
+        constructor(projcs) {
+            let values=Object.values(projcs)[0];
+            this.name=values[0];
+            this.params=[];
             for (let i=0;i<values.length;i++){
                 if (values[i] instanceof  Object){
                     let key=Object.keys(values[i])[0].toUpperCase();
                     switch (key){
                         case PKW_GEOGCS:
-                            geocs=values[i];
+                            this.geogcs=new GeogCs(values[i]);
                             break;
                         case PKW_PARAMETER:
-                            proj_parma.push(values[i]);
+                            this.params.push(new ProjParameter(values[i]));
                             break
                         case PKW_UNIT:
-                            unit=values[i];
+                            this.unit=new Uint(values[i]);
                             break
                         case PKW_PROJECTION:
-                            proj=values[i];
+                            this.proj=new Projection(values[i]);
                             break;
                     }
 
                 }
             }
-            return new ProjCs(prj_name,geocs,proj,proj_parma,unit)
+            // this.name=name;
+            // this.geogcs=new GeogCs(geogcs);
+            // this.proj=new Projection(proj);
+            // this.params=params.map(value => {
+            //     return new ProjParameter(value)
+            // })
+            // this.unit=new Uint(unit);
         }
-        init(){
-            this.type=Object.keys(this.wkt_json)[0].toUpperCase();
-            if (Object.keys(this.wkt_json)[0].toUpperCase()===PKW_PROJCS){
-                this.cs=this._get_projcs(this.wkt_json);
-            }else {
-                this.cs=this._get_geogcs(this.wkt_json);
-            }
+        to_proj4(){
+            let params=this.params.map(value => {
+                return value.to_proj4()
+            }).join(" ");
+            return "+proj="+this.proj.to_proj4()+this.geogcs.to_proj4(true)+params+this.unit.to_proj4()
+        }
+    }
 
+    const  PKW_PROJCS ="PROJCS";   //投影坐标系
+    class Cs{
+        constructor(wkt_json) {
+            this.cs=Object.keys(wkt_json)[0].toUpperCase()===PKW_PROJCS?new ProjCs(wkt_json):new GeogCs(wkt_json);
         }
         to_proj4(){
             return this.cs.to_proj4()+" +no_defs +type=crs"
@@ -387,11 +368,9 @@
         return cs.to_proj4()
     }
 
-    var index = {
-          to_proj4
-    };
+    var index = {to_proj4};
+    // module.exports= {to_proj4}
 
     return index;
 
 }));
-//# sourceMappingURL=wkt2proj.js.map

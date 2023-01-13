@@ -1,6 +1,8 @@
-import json from '@rollup/plugin-json';
-// import commonjs from 'rollup-plugin-commonjs';
-import  { terser }  from 'rollup-plugin-terser'
+'use strict';
+
+var json = require('@rollup/plugin-json');
+var rollupPluginTerser = require('rollup-plugin-terser');
+
 const pkg = require('./package.json');
 
 const banner = `/*!\n * ${pkg.name} v${pkg.version}\n * LICENSE : ${pkg.license}\n  AUTHOR  : ${pkg.author.name} \n* */`;
@@ -11,7 +13,7 @@ const basePlugins = [
 module.exports = [
     {
         input: './src/index.js',
-        plugins:basePlugins.concat([terser()]),
+        plugins:basePlugins.concat([rollupPluginTerser.terser()]),
         external: [],
         output: {
             'format': 'umd',
@@ -33,7 +35,7 @@ module.exports = [
     },
     {
         input: './src/index.js',
-        plugins: basePlugins.concat([terser()]),
+        plugins: basePlugins.concat([rollupPluginTerser.terser()]),
         external: [],
         output: {
             'format': 'umd',

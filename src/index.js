@@ -4,48 +4,7 @@
 //     '        SPHEROID["CGCS2000",6378137.0,298.257222101]],\n' +
 //     '    PRIMEM["Greenwich",0.0],\n' +
 //     '    UNIT["Degree",0.0174532925199433]]'
-// 将wkt转换为json
-// function  wkt_to_json(wkt){
-//      if (!wkt) return;
-//       let count=wkt.length;
-//       let parser_str="";
-//      for (let i = 0; i < wkt.length; i++) {
-//             let char=wkt[i];
-//             if (char =="[" ){
-//                   char=":[{"
-//             }
-//             else if (char=="]"){
-//                  char="}]"
-//             }else  if (char =="\,"){
-//                  char="},{"
-//             }
-//             parser_str+=char;
-//      }
-//      let left_list=[];
-//      let remove_list=[];
-//      for (let i = 0; i < parser_str.length; i++) {
-//            let char=parser_str[i];
-//            if (char == "{"){
-//                 left_list.push(i)
-//            }else  if (char=="}" && left_list.length>0){
-//                  let substr=parser_str.substring(left_list[left_list.length-1],i);
-//                  if (!substr.includes(":")){
-//                      remove_list=remove_list.concat([left_list[left_list.length-1],i])
-//                      left_list=[];
-//                  }
-//            }
-//      }
-//      let result_str = "";
-//      for (let i = 0; i < parser_str.length; i++) {
-//           if(!remove_list.includes(i)){
-//                result_str+=parser_str[i]
-//           }
-//      }
-//      console.dir(eval(result_str))
-// }
-
 import Cs from "./Proj/Cs";
-
 //获取wkt类型
 function get_wkt_type(data){
      let key=data.keys[0];
@@ -105,6 +64,5 @@ function  to_proj4(str){
     return cs.to_proj4()
 }
 
-export  default {
-      to_proj4
-}
+export  default {to_proj4}
+// module.exports= {to_proj4}
