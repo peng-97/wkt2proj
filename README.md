@@ -1,7 +1,7 @@
 
 
 
-#  wkttoproj
+#  wkt2proj
 
 ## Intro
 

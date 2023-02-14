@@ -42,7 +42,7 @@
       <recent name="E:\Documents\GitHub\wkt2proj\src\Proj" />
     </key>
   </component>
-  <component name="RunManager" selected="Node.js.index.js">
+  <component name="RunManager" selected="npm.build">
     <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/wkt2proj/test/index.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
@@ -74,11 +74,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Node.js.index.js" />
         <item itemvalue="npm.build" />
+        <item itemvalue="npm.test" />
+        <item itemvalue="Node.js.index.js" />
         <item itemvalue="JavaScript 调试.index.html" />
         <item itemvalue="Node.js.index.js (1)" />
-        <item itemvalue="npm.test" />
       </list>
     </recent_temporary>
   </component>
@@ -93,7 +93,8 @@
       <workItem from="1673488794920" duration="4417000" />
       <workItem from="1673509533483" duration="1712000" />
       <workItem from="1673581043133" duration="4212000" />
-      <workItem from="1673592273553" duration="5706000" />
+      <workItem from="1673592273553" duration="8936000" />
+      <workItem from="1676340305008" duration="1858000" />
     </task>
     <servers />
   </component>
@@ -105,32 +106,22 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/dist/wkt2proj.js</url>
-          <line>365</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/dist/wkt2proj.js</url>
           <line>114</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/dist/wkt2proj.js</url>
           <line>283</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/dist/wkt2proj.js</url>
           <line>281</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/dist/wkt2proj.js</url>
           <line>303</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>

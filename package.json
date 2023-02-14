@@ -1,8 +1,8 @@
 {
   "name": "wkt2proj",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "将坐标系wkt转为Proj格式,wkt2proj",
-  "main": "./dist/index.js",
+  "main": "./dist/wkt2proj.js",
   "scripts": {
     "build": "rollup --bundleConfigAsCjs  -c  rollup.config.js",
     "test": "node ./test"

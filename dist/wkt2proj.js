@@ -1,13 +1,13 @@
 /*!
- * wkt2proj v0.1.2
+ * wkt2proj v0.1.3
  * LICENSE : MIT
   AUTHOR  : pengz 
 * */
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-    typeof define === 'function' && define.amd ? define(factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.wkt2proj = factory());
-})(this, (function () { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+    typeof define === 'function' && define.amd ? define(['exports'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.wkt2proj = {}));
+})(this, (function (exports) { 'use strict';
 
     class Ellipsoids{
         ellipsoids_list=[
@@ -368,9 +368,10 @@
         return cs.to_proj4()
     }
 
-    var index = {to_proj4};
+    // export  default {to_proj4}
+
     // module.exports= {to_proj4}
 
-    return index;
+    exports.to_proj4 = to_proj4;
 
 }));
